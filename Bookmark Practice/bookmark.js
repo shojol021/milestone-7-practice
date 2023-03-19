@@ -12,16 +12,16 @@ const displayProduct = (data) => {
     data.forEach(product => {
         container.innerHTML += `
         <div class="card w-96 bg-base-100 shadow-xl">
-                <figure><img src="${product.image}" alt="Shoes" /></figure>
+                <figure><img class="max-h-96" src="${product.image}" alt="Shoes" /></figure>
                 <div class="card-body">
                   <h2 class="card-title">
-                    Shoes!
-                    <div class="badge badge-secondary">NEW</div>
+                  ${product.name}
+                  <i class="fa-regular fa-bookmark"></i>
                   </h2>
-                  <p>If a dog chews shoes whose shoes does he choose?</p>
+                  <p>${product.description}</p>
                   <div class="card-actions justify-end">
-                    <div class="border border-outline rounded text-3xl p-2">$<span>12.99</span></div> 
-                    <div class="btn btn-primary">Products</div>
+                    <div class="border border-outline rounded text-3xl p-2">$<span>${product.price}</span></div> 
+                    <div class="btn btn-primary">Buy Now</div>
                   </div>
                 </div>
               </div>
