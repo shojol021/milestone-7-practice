@@ -1,5 +1,3 @@
-console.log('hi')
-
 const loadProduct = () => {
     fetch('product.json')
         .then(res => res.json())
@@ -7,7 +5,6 @@ const loadProduct = () => {
 }
 
 const displayProduct = (data) => {
-    // console.log(data)
     const container = document.getElementById('container');
     data.forEach(product => {
         container.innerHTML += `
@@ -16,7 +13,7 @@ const displayProduct = (data) => {
                 <div class="card-body">
                   <h2 class="card-title">
                   ${product.name}
-                  <i class="fa-regular fa-bookmark"></i>
+                  <i id="icon-white" onclick="setBookmark('${product.id}', '${product.name}', '${product.price}')" class="fa-regular fa-bookmark"></i>
                   </h2>
                   <p>${product.description}</p>
                   <div class="card-actions justify-end">
@@ -26,8 +23,42 @@ const displayProduct = (data) => {
                 </div>
               </div>
         `
-        // console.log(product.name)
     });
 }
 
+const setBookmark = (id, name, price) => {
+    let bookmark = [];
+    const previousBookmark = JSON.parse(localStorage.getItem('bookmark'));
+    const itemDetails = { id, name, price, bookmark: true }
+
+    if (previousBookmark) {
+        const a = previousBookmark.find(product => product.id == id);
+        if (a) {
+            alert('already bookmarked')
+        }
+        else {
+            bookmark = [...previousBookmark, itemDetails]
+            localStorage.setItem('bookmark', JSON.stringify(bookmark));
+        }
+    }
+    else {
+        bookmark.push(itemDetails);
+        localStorage.setItem('bookmark', JSON.stringify(bookmark));
+    }
+}
+
+
 loadProduct();
+
+
+document.getElementById('icon-white').addEventListener('click', function(){
+    console.log('clicked')
+})
+
+// document.getElementById('icon-white').innerHTML = `
+    // <i id="icon-black" onclick="setBookmark('${product.id}', '${product.name}', '${product.price}')" class="fa-solid fa-bookmark"></i>
+    // `
+
+//<i class="fa-solid fa-bookmark"></i>
+
+//${product.id}, ${product.name}, ${product.price}
